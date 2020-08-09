@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Rapi\Core\Support\Facades\RapiResponse;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::group(['prefix' => 'v1', 'namespace' => 'Domain'], function () {
+
+    Route::resource('merchants', 'Merchant\Http\MerchantController');
+    Route::resource('categories', 'Category\Http\CategoryController');
+    Route::resource('events', 'Event\Http\EventController');
+    Route::resource('addresses', 'Address\Http\AddressController');
+});
+
+# Version
+Route::get('/', function () {
+    return RapiResponse::withData([
+        'name' => config('app.name'),
+        'version' => config('app.version'),
+        'locale' => app()->getLocale(),
+    ]);
 });
