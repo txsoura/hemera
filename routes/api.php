@@ -20,8 +20,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Domain'], function () {
 
     Route::resource('merchants', 'Merchant\Http\MerchantController');
     Route::resource('categories', 'Category\Http\CategoryController');
-    Route::resource('events', 'Event\Http\EventController');
     Route::resource('addresses', 'Address\Http\AddressController');
+    Route::resource('events', 'Event\Http\EventController');
+    Route::get('events/search', 'Event\Http\EventResumeController@resume');
 });
 
 # Version
